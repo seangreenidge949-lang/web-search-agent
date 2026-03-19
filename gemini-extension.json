@@ -1,0 +1,6 @@
+{
+  "name": "web-search-agent",
+  "description": "Unified web search across 16+ platforms with scraping, comment extraction, and login management.",
+  "version": "1.0.0",
+  "contextFileName": "agents/AGENTS.md"
+}

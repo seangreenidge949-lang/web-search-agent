@@ -4,3 +4,4 @@ __pycache__/
 browser-profiles/
 .env
 _originals/
+docs/

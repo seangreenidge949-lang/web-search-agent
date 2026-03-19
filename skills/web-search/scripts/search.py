@@ -5,15 +5,11 @@ LLM decides what to search; this script executes and returns structured results.
 
 Usage:
     search.py --platform <id> --query "<keywords>" [--limit N]
-    search.py --scrape <url> [--format markdown|text|html] [--css <selector>]
-    search.py --login <url>
-    search.py --check-login <domain>
-    search.py --comments <url> [--limit N]
     search.py --list-platforms
 """
 
-import sys
 import os
+import sys
 import json
 import time
 import argparse

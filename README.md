@@ -1,54 +1,85 @@
 # Web Search Agent
 
-Unified web search tool for AI coding assistants. One script, 16+ platforms, works with any AI assistant.
+Unified web search for AI coding assistants. One script, 16+ platforms, zero-config integration.
 
 ## What it does
 
-- **16 platform adapters**: Bilibili, Weibo, Zhihu, Xiaohongshu, Taobao, Reddit, Twitter/X, Stack Overflow, CSDN, Product Hunt, Coolapk, Heimao, SMZDM, Exa, Jina, and a universal `--site` search for any website
-- **Direct scraping**: Fetch full page content with anti-detection (`--scrape`)
+- **16 platform adapters**: Bilibili, Weibo, Zhihu, Xiaohongshu, Taobao, Reddit, Twitter/X, Stack Overflow, CSDN, Product Hunt, Coolapk, Heimao, SMZDM, Exa, Jina, plus `--site` for any website
+- **Direct scraping**: Full page content with anti-detection (`--scrape`)
 - **Comment extraction**: Pull comments from any page (`--comments`)
 - **Login management**: Persistent browser profiles for auth-required platforms (`--login`)
-- **AI-ready rules**: Drop-in prompt files for Claude Code, Cursor, Windsurf, or any AI assistant
 
-## Quick Start
+## Install
 
-```bash
-git clone https://github.com/siyucheng/web-search-agent.git
-cd web-search-agent
-./setup.sh
-```
-
-Test it:
-
-```bash
-.venv/bin/python3 search.py --list-platforms
-.venv/bin/python3 search.py --platform bilibili --query "AI编程" --limit 3
-.venv/bin/python3 search.py --site v2ex.com --query "Claude Code" --limit 5
-.venv/bin/python3 search.py --scrape "https://example.com" --format markdown
-```
-
-## Integrate with your AI assistant
+Each AI assistant has its own one-liner:
 
 ### Claude Code
 
-Copy rules into your Claude Code config:
+```bash
+npx skills add seangreenidge949-lang/web-search-agent -g
+```
+
+Then run setup:
 
 ```bash
-cp rules/web-collector.md ~/.claude/agents/web-collector.md
-cp rules/web-research.md ~/.claude/skills/web-research/SKILL.md
+bash ~/.claude/skills/web-search/scripts/setup.sh
+```
+
+### Codex / OpenAI
+
+Clone into your project — `agents/AGENTS.md` is auto-discovered:
+
+```bash
+git clone https://github.com/seangreenidge949-lang/web-search-agent.git
+bash web-search-agent/skills/web-search/scripts/setup.sh
 ```
 
 ### Cursor
 
-Append the content of `rules/web-collector.md` and `rules/web-research.md` to your `.cursorrules` file.
+Clone into your project — `.cursor/rules/web-search.md` is auto-discovered:
 
-### Windsurf
+```bash
+git clone https://github.com/seangreenidge949-lang/web-search-agent.git
+bash web-search-agent/skills/web-search/scripts/setup.sh
+```
 
-Append the content of `rules/web-collector.md` and `rules/web-research.md` to your `.windsurfrules` file.
+### Gemini CLI
 
-### Any AI assistant
+Uses `gemini-extension.json` — auto-discovered when the repo is in your project:
 
-Copy the content of files in `rules/` into your AI assistant's system prompt or rules file.
+```bash
+git clone https://github.com/seangreenidge949-lang/web-search-agent.git
+bash web-search-agent/skills/web-search/scripts/setup.sh
+```
+
+### Any other AI assistant
+
+Copy the content of `skills/web-search/SKILL.md` into your AI assistant's system prompt or rules file.
+
+## Usage
+
+```bash
+# Search a platform
+python3 search.py --platform bilibili --query "AI编程" --limit 5
+
+# Search any website
+python3 search.py --site v2ex.com --query "Claude Code" --limit 5
+
+# Scrape a URL
+python3 search.py --scrape "https://example.com" --format markdown
+
+# Extract comments
+python3 search.py --comments "https://www.zhihu.com/question/xxx" --limit 10
+
+# Login for auth-required platforms
+python3 search.py --login "https://www.zhihu.com/signin"
+
+# Check login status
+python3 search.py --check-login zhihu.com
+
+# List all platforms
+python3 search.py --list-platforms
+```
 
 ## Supported Platforms
 
@@ -71,46 +102,7 @@ Copy the content of files in `rules/` into your AI assistant's system prompt or 
 | Xiaohongshu | `xiaohongshu` | Yes |
 | Zhihu | `zhihu` | Yes |
 
-## Login for auth-required platforms
-
-```bash
-# Open browser for interactive login (QR code, password, etc.)
-.venv/bin/python3 search.py --login "https://www.zhihu.com/signin"
-
-# Check if login session is still valid
-.venv/bin/python3 search.py --check-login zhihu.com
-```
-
-Login profiles are saved to `~/.web-search-agent/profiles/` by default. Override with:
-
-```bash
-export SEARCH_PROFILES_DIR=/path/to/your/profiles
-```
-
-## All commands
-
-```bash
-# Search a platform
-search.py --platform <id> --query "keywords" [--limit N]
-
-# Search any website via Exa
-search.py --site <domain> --query "keywords" [--limit N]
-
-# Scrape a URL
-search.py --scrape <url> [--format markdown|text|html] [--css <selector>]
-
-# Extract comments from a page
-search.py --comments <url> [--limit N]
-
-# Login management
-search.py --login <url>
-search.py --check-login <domain>
-
-# List platforms
-search.py --list-platforms
-```
-
-## Environment variables
+## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -122,7 +114,7 @@ search.py --list-platforms
 - Python 3.10+
 - [Scrapling](https://github.com/AliBarber/scrapling) — stealth web fetching
 - [Playwright](https://playwright.dev/) — browser automation
-- Exa search uses [mcporter](https://github.com/nichochar/mcporter) CLI (optional, for `exa` and `web` platforms)
+- [mcporter](https://github.com/nichochar/mcporter) — for Exa search (optional)
 
 ## License
 
