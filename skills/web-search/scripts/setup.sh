@@ -15,7 +15,7 @@ fi
 
 echo "[2/3] Installing Python dependencies..."
 "$VENV_DIR/bin/pip" install --quiet --upgrade pip
-"$VENV_DIR/bin/pip" install --quiet scrapling playwright
+"$VENV_DIR/bin/pip" install --quiet scrapling playwright tavily-python
 
 echo "[3/3] Installing Playwright Chromium browser..."
 "$VENV_DIR/bin/playwright" install chromium
