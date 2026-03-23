@@ -29,7 +29,7 @@ python3 skills/web-search/scripts/search.py --login <url>
 
 ## Platforms
 
-bilibili, coolapk, csdn, exa, heimao, jina, producthunt, reddit, smzdm, stackoverflow, taobao[login], twitter, web(any site), weibo[login], xiaohongshu[login], zhihu[login]
+bilibili, coolapk, csdn, exa, heimao, jina, tavily, producthunt, reddit, smzdm, stackoverflow, taobao[login], twitter, web(any site), weibo[login], xiaohongshu[login], zhihu[login]
 
 ## Research Flow
 

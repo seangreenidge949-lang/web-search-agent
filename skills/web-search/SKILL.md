@@ -54,6 +54,7 @@ Output format: JSON Lines — one JSON object per line: `{title, url, snippet, a
 | `exa` | Exa 语义搜索 | |
 | `heimao` | 黑猫投诉 | |
 | `jina` | Jina | |
+| `tavily` | Tavily 语义搜索 | |
 | `producthunt` | Product Hunt | |
 | `reddit` | Reddit | |
 | `smzdm` | 什么值得买 | |
@@ -109,3 +110,4 @@ Run search.py for each query. For high-value results:
 |----------|-------------|---------|
 | `SEARCH_PROFILES_DIR` | Browser profile storage | `~/.web-search-agent/profiles` |
 | `JINA_API_KEY` | Jina search API key (optional) | - |
+| `TAVILY_API_KEY` | Tavily search API key (optional, enables `tavily` platform and web-search fallback) | - |

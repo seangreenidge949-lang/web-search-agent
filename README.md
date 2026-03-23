@@ -91,6 +91,7 @@ python3 search.py --list-platforms
 | Exa | `exa` | |
 | Heimao (Black Cat) | `heimao` | |
 | Jina | `jina` | |
+| Tavily | `tavily` | |
 | Product Hunt | `producthunt` | |
 | Reddit | `reddit` | |
 | SMZDM | `smzdm` | |
@@ -108,6 +109,7 @@ python3 search.py --list-platforms
 |----------|-------------|---------|
 | `SEARCH_PROFILES_DIR` | Browser profile storage path | `~/.web-search-agent/profiles` |
 | `JINA_API_KEY` | API key for Jina search (optional) | - |
+| `TAVILY_API_KEY` | API key for Tavily search (optional) | - |
 
 ## Dependencies
 

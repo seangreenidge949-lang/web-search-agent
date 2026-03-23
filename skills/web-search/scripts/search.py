@@ -695,8 +695,40 @@ def search_jina(query: str, limit: int) -> list[SearchResult]:
     return results
 
 
+@adapter("tavily", "Tavily 语义搜索")
+def search_tavily(query: str, limit: int) -> list[SearchResult]:
+    api_key = os.environ.get("TAVILY_API_KEY", "")
+    if not api_key:
+        sys.stderr.write("[warn] tavily: TAVILY_API_KEY not set\n")
+        return []
+
+    try:
+        from tavily import TavilyClient
+        client = TavilyClient(api_key=api_key)
+        response = client.search(query=query, max_results=limit, search_depth="basic")
+    except ImportError:
+        sys.stderr.write("[warn] tavily: tavily-python not installed. Run setup.sh.\n")
+        return []
+    except Exception as e:
+        sys.stderr.write(f"[warn] tavily: {e}\n")
+        return []
+
+    results = []
+    for item in response.get("results", [])[:limit]:
+        results.append(SearchResult(
+            title=(item.get("title") or "")[:80],
+            url=item.get("url", ""),
+            snippet=truncate_snippet(item.get("content", "")),
+        ))
+    return results
+
+
 @adapter("web", "通用 Web 搜索（支持 --site 限定域名）")
 def search_web(query: str, limit: int) -> list[SearchResult]:
+    if os.environ.get("TAVILY_API_KEY"):
+        results = search_tavily(query, limit)
+        if results:
+            return results
     return search_exa(query, limit)
 
 
